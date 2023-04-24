@@ -1,8 +1,31 @@
-export default {
-  foo(param) {
-    console.log(param)
-    // this 是 helper 对象，在其中可以调用其他 helper 方法
-    // this.ctx => context 对象
-    // this.app => application 对象
-  },
+import { Context } from 'egg';
+import { userErrorMessage } from '../controller/user';
+interface SuccessResType {
+  ctx: Context,
+  res?: any,
+  msg?: string,
 }
+
+interface ErrorResType {
+  ctx: Context,
+  errorType: keyof (typeof userErrorMessage)
+  error?: any
+}
+export default {
+  success({ ctx, res, msg }: SuccessResType) {
+    ctx.body = {
+      errNo: 0,
+      data: res ? res : null,
+      message: msg ? msg : '请求成功',
+    };
+    ctx.status = 200;
+  },
+  error({ ctx, errorType, error } :ErrorResType) {
+    ctx.body = {
+      errNo: userErrorMessage[errorType].errNo,
+      message: userErrorMessage[errorType].message,
+      ...(error && { error }),
+    };
+    ctx.status = 200;
+  },
+};

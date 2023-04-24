@@ -1,10 +1,7 @@
 import { Controller } from 'egg';
-
 export default class HomeController extends Controller {
   public async index() {
     const { ctx } = this;
-    ctx.helper.foo('hello');
-    console.log(ctx.app.bar);
-    ctx.body = await ctx.service.test.sayHi('egg');
+    ctx.helper.success({ ctx, res: [{ id: 1, name: 'dennyzhou', age: 30 }, { id: 2, name: 'doris', age: 29 }] });
   }
 }
