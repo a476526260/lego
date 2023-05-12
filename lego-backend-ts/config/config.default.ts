@@ -4,7 +4,7 @@ export default (appInfo: EggAppInfo) => {
 
   // override config from framework / plugin
   // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_{{keys}}';
+  config.keys = appInfo.name + 'zds_love_gst_forever_2023';
 
   // add your egg config in here
   config.middleware = [];
@@ -25,6 +25,9 @@ export default (appInfo: EggAppInfo) => {
   config.bcrypt = {
     saltRounds: 5,
   };
+  config.session = {
+    encrypt: false
+  }
 
   // add your special config in here
   const bizConfig = {

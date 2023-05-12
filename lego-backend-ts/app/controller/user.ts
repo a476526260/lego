@@ -1,4 +1,4 @@
-import { Controller } from 'egg';
+import {Controller} from 'egg';
 
 const userCreateRules = {
   username: 'email',
@@ -16,28 +16,38 @@ export const userErrorMessage = {
   },
   loginCheckFailInfo: {
     errNo: 101003,
-    message: '该用户不存在或密码正确',
+    message: '该用户不存在或密码错误',
   },
+  loginValidateFail: {
+    errNo: 101004,
+    message: '用户未登录',
+  }
 };
 export default class UserController extends Controller {
+
+  checkUserInput () {
+    const { ctx, app } = this;
+    return app.validator.validate(userCreateRules, ctx.request.body)
+  }
   async createByEmail() {
-    const { ctx, service, app } = this;
-    const errors = app.validator.validate(userCreateRules, ctx.request.body);
+    const { ctx, service} = this;
+    const errors = this.checkUserInput();
     if (errors) {
       ctx.logger.warn(errors);
       return ctx.helper.error({ ctx, errorType: 'userValidateFail', error: errors });
     }
     const { username } = ctx.request.body;
     const user = await service.user.findByUserName(username);
+
     if (user) {
       return ctx.helper.error({ ctx, errorType: 'createUserAlreadyExists' });
     }
     const userData = await service.user.createByEmail(ctx.request.body);
-    ctx.helper.success({ ctx, res: userData });
+    ctx.helper.success({ ctx, res: userData, msg: '创建成功' });
   }
   async loginByEmail() {
-    const { ctx, service, app } = this;
-    const errors = app.validator.validate(userCreateRules, ctx.request.body);
+    const { ctx, service} = this;
+    const errors = this.checkUserInput();
     if (errors) {
       ctx.logger.warn(errors);
       return ctx.helper.error({ ctx, errorType: 'loginCheckFailInfo', error: errors });
@@ -51,12 +61,20 @@ export default class UserController extends Controller {
     if (!comparePassword) {
       return ctx.helper.error({ ctx, errorType: 'loginCheckFailInfo' });
     }
-    ctx.helper.success({ ctx, res: user, msg: '登录成功' });
+    ctx.session.username = user.username;
+    ctx.helper.success({ ctx, res: user.toJSON(), msg: '登录成功' });
   }
 
   async showUser() {
     const { ctx, service } = this;
     const data = await service.user.findById(ctx.params.id);
-    ctx.helper.success({ ctx, res: data });
+    const {username} = ctx.session
+    if(!username) {
+      return ctx.helper.error({ctx, errorType: 'loginValidateFail'})
+    }
+    ctx.helper.success({ ctx, res: {
+      data,
+      user: username
+    }});
   }
 }
