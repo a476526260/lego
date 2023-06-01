@@ -1,5 +1,5 @@
-import { Application, IBoot } from 'egg';
-class AppBootHook implements IBoot {
+import { Application } from 'egg';
+class AppBootHook {
   private readonly app: Application;
   constructor(app:Application) {
     app.sessionMap = {}
@@ -39,6 +39,7 @@ class AppBootHook implements IBoot {
 
   async didReady() {
     // 应用已经启动完毕
+    // console.log(this.app.middleware)
   }
 
   async serverDidReady() {

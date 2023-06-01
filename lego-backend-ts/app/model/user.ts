@@ -11,6 +11,7 @@ export interface UserProps {
   phoneNumber?: string,
   createdAt: Date,
   updatedAt: Date,
+  type: 'email' | 'cellphone'
 }
 
 function initUserModel(app: Application) {
@@ -22,8 +23,11 @@ function initUserModel(app: Application) {
     email: {type: String},
     picture: {type: String},
     phoneNumber: {type: String},
+    type: {type: String, default: 'email'}
   }, {
-    timestamps: true, collection: 'user', toJSON: {
+    timestamps: true,     // 如果出现timestamps相关的报错，可能是由于mongoose版本不兼容导致的，需重新安装依赖
+    collection: 'user',
+    toJSON: {
       transform(_doc, ret) {
         delete ret.password
         delete ret.__v

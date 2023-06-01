@@ -1,0 +1,12 @@
+2023-05-15 15:04:50,402 INFO 19164 [egg-schedule]: register schedule /Users/zhoudashun/Desktop/imooc_lego/lego-backend-ts/node_modules/egg-multipart/app/schedule/clean_tmpdir.js
+2023-05-15 15:04:50,402 INFO 19164 [egg-schedule]: register schedule /Users/zhoudashun/Desktop/imooc_lego/lego-backend-ts/node_modules/egg-logrotator/app/schedule/clean_log.js
+2023-05-15 15:04:50,402 INFO 19164 [egg-schedule]: register schedule /Users/zhoudashun/Desktop/imooc_lego/lego-backend-ts/node_modules/egg-logrotator/app/schedule/rotate_by_file.js
+2023-05-15 15:04:52,368 INFO 19162 [Timer] /Users/zhoudashun/Desktop/imooc_lego/lego-backend-ts/node_modules/egg-multipart/app/schedule/clean_tmpdir.js next time will execute after 48307635ms at 2023-05-16 04:30:00.003
+2023-05-15 15:04:52,368 INFO 19162 [Timer] /Users/zhoudashun/Desktop/imooc_lego/lego-backend-ts/node_modules/egg-logrotator/app/schedule/clean_log.js next time will execute after 32107632ms at 2023-05-16 00:00:00.000
+2023-05-15 15:04:52,368 INFO 19162 [Timer] /Users/zhoudashun/Desktop/imooc_lego/lego-backend-ts/node_modules/egg-logrotator/app/schedule/rotate_by_file.js next time will execute after 32108632ms at 2023-05-16 00:00:01.000
+2023-05-15 15:05:44,101 INFO 19203 [egg-schedule]: register schedule /Users/zhoudashun/Desktop/imooc_lego/lego-backend-ts/node_modules/egg-multipart/app/schedule/clean_tmpdir.js
+2023-05-15 15:05:44,101 INFO 19203 [egg-schedule]: register schedule /Users/zhoudashun/Desktop/imooc_lego/lego-backend-ts/node_modules/egg-logrotator/app/schedule/clean_log.js
+2023-05-15 15:05:44,102 INFO 19203 [egg-schedule]: register schedule /Users/zhoudashun/Desktop/imooc_lego/lego-backend-ts/node_modules/egg-logrotator/app/schedule/rotate_by_file.js
+2023-05-15 15:05:44,870 INFO 19201 [Timer] /Users/zhoudashun/Desktop/imooc_lego/lego-backend-ts/node_modules/egg-multipart/app/schedule/clean_tmpdir.js next time will execute after 48255132ms at 2023-05-16 04:30:00.002
+2023-05-15 15:05:44,870 INFO 19201 [Timer] /Users/zhoudashun/Desktop/imooc_lego/lego-backend-ts/node_modules/egg-logrotator/app/schedule/clean_log.js next time will execute after 32055130ms at 2023-05-16 00:00:00.000
+2023-05-15 15:05:44,871 INFO 19201 [Timer] /Users/zhoudashun/Desktop/imooc_lego/lego-backend-ts/node_modules/egg-logrotator/app/schedule/rotate_by_file.js next time will execute after 32056130ms at 2023-05-16 00:00:01.001
