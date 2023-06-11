@@ -1,4 +1,4 @@
-import {EggAppConfig, EggAppInfo, PowerPartial} from 'egg';
+import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
@@ -8,7 +8,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + 'zds_love_gst_forever_2023';
 
   // add your egg config in here
-  config.middleware = ['customError'];
+  config.middleware = [ 'customError' ];
 
   config.view = {
     defaultViewEngine: 'nunjucks',
@@ -27,19 +27,23 @@ export default (appInfo: EggAppInfo) => {
     saltRounds: 5,
   };
   config.session = {
-    encrypt: false
-  }
+    encrypt: false,
+  };
   config.jwt = {
-    secret: 'huahuabaobei-ainiyo'
-  }
+    secret: 'huahuabaobei-ainiyo',
+  };
   config.redis = {
     client: {
-      port: 6379,          // Redis port
-      host: '127.0.0.1',   // Redis host
+      port: 6379, // Redis port
+      host: '127.0.0.1', // Redis host
       password: '',
       db: 0,
     },
-  }
+  };
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,OPTIONS,POST,DELETE,PATCH',
+  };
 
   // add your special config in here
   const bizConfig = {

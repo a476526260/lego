@@ -1,5 +1,7 @@
 import { Context } from 'egg';
 import { userErrorMessage } from '../controller/user';
+import { workErrorMessage } from '../controller/work';
+
 interface SuccessResType {
   ctx: Context,
   res?: any,
@@ -8,9 +10,13 @@ interface SuccessResType {
 
 interface ErrorResType {
   ctx: Context,
-  errorType: keyof (typeof userErrorMessage)
+  errorType: keyof (typeof userErrorMessage & typeof workErrorMessage)
   error?: any
 }
+const globalErrorMessage = {
+  ...userErrorMessage,
+  ...workErrorMessage,
+};
 export default {
   success({ ctx, res, msg }: SuccessResType) {
     ctx.body = {
@@ -22,8 +28,8 @@ export default {
   },
   error({ ctx, errorType, error } :ErrorResType) {
     ctx.body = {
-      errNo: userErrorMessage[errorType].errNo,
-      message: userErrorMessage[errorType].message,
+      errNo: globalErrorMessage[errorType].errNo,
+      message: globalErrorMessage[errorType].message,
       ...(error && { error }),
     };
     ctx.status = 200;

@@ -2,21 +2,21 @@ import { Application } from 'egg';
 class AppBootHook {
   private readonly app: Application;
   constructor(app:Application) {
-    app.sessionMap = {}
+    app.sessionMap = {};
     app.sessionStore = {
       async get(key) {
-        app.logger.info('key', key)
-        return app.sessionMap[key]
+        app.logger.info('key', key);
+        return app.sessionMap[key];
       },
       async set(key, val) {
-        app.logger.info('key', key)
-        app.logger.info('value', val)
-        app.sessionMap[key] = val
+        app.logger.info('key', key);
+        app.logger.info('value', val);
+        app.sessionMap[key] = val;
       },
       async destroy(key) {
-        delete app.sessionMap[key]
-      }
-    }
+        delete app.sessionMap[key];
+      },
+    };
     this.app = app;
   }
 
