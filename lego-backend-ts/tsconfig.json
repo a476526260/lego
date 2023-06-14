@@ -4,5 +4,6 @@
     "app/public",
     "app/views",
     "node_modules*"
-  ]
+  ],
+  "experimentalDecorators": true
 }
