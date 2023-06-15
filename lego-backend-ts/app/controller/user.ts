@@ -15,14 +15,7 @@ const userPhoneCreateRules = {
   veriCode: {type: 'string', format: /^\d{4}$/, message: '验证码格式错误'}
 }
 
-
 export default class UserController extends Controller {
-  // 验证用户输入
-  checkUserInput(rules: any) {
-    const {ctx, app} = this;
-    return app.validator.validate(rules, ctx.request.body);
-  }
-
   // 发送验证码
   @validateInput(sendCodeRules, 'userValidateFail')
   async sendVeriCode() {
@@ -59,10 +52,11 @@ export default class UserController extends Controller {
     const {ctx, service} = this;
     const {username} = ctx.request.body;
     const user = await service.user.findByUserName(username);
-
+    // 用户名是否已存在
     if (user) {
       return ctx.helper.error({ctx, errorType: 'createUserAlreadyExists'});
     }
+    // 创建用户
     const userData = await service.user.createByEmail(ctx.request.body);
     ctx.helper.success({ctx, res: userData, msg: '创建成功'});
   }
@@ -72,15 +66,17 @@ export default class UserController extends Controller {
   async loginByEmail() {
     const {ctx, service, app} = this;
     const {username, password} = ctx.request.body;
+    // 检查是否存在该用户名
     const user = await service.user.findByUserName(username);
     if (!user) {
       return ctx.helper.error({ctx, errorType: 'loginCheckFailInfo'});
     }
+    // 检查密码是否正确
     const comparePassword = await ctx.compare(password, user.password);
     if (!comparePassword) {
       return ctx.helper.error({ctx, errorType: 'loginCheckFailInfo'});
     }
-    // ctx.session.username = user.username;
+    // 生成token;
     const token = app.jwt.sign({username: user.username, _id: user.id}, app.config.jwt.secret, {expiresIn: 60 * 60});
     ctx.helper.success({ctx, res: {token}, msg: '登录成功'});
   }

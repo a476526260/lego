@@ -1,5 +1,5 @@
 import { Context } from 'egg';
-import {GlobalErrorResTypes, globalErrorMessages} from '../error/index';
+import {GlobalErrorTypes, globalErrorMessages} from '../error';
 interface SuccessResType {
   ctx: Context,
   res?: any,
@@ -14,7 +14,7 @@ export default {
     };
     ctx.status = 200;
   },
-  error({ ctx, errorType, error } :GlobalErrorResTypes) {
+  error({ ctx, errorType, error } : {ctx: Context, errorType: GlobalErrorTypes, error?: any }) {
     ctx.body = {
       errNo: globalErrorMessages[errorType].errNo,
       message: globalErrorMessages[errorType].message,

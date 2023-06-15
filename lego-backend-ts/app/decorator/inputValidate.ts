@@ -2,8 +2,7 @@ import {GlobalErrorTypes} from "../error";
 import {Controller} from "egg";
 
 export default function validateInput(rules: any, errorType: GlobalErrorTypes) {
-  return function (prototype: any, key: string, descriptor: PropertyDescriptor) {
-    console.log(prototype, key)
+  return function (_prototype: any, _key: string, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value;
     descriptor.value = async function (...args: any[]) {
       const that = this as Controller
