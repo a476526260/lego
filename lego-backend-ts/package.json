@@ -10,7 +10,8 @@
   "scripts": {
     "start": "egg-scripts start --daemon --title=egg-server-legoBackend",
     "stop": "egg-scripts stop --title=egg-server-legoBackend",
-    "dev": "npm install rimraf && rimraf node_modules && yarn install && egg-bin dev",
+    "dev": "rimraf node_modules && yarn install && egg-bin dev",
+    "dev:rimaf": "npm install rimraf && rimraf node_modules && yarn install && egg-bin dev",
     "debug": "egg-bin debug",
     "test-local": "egg-bin test",
     "test": "npm run lint -- --fix && npm run test-local",

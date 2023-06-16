@@ -16,6 +16,7 @@ export interface WorkProps {
   copiedCount: number;
   status?: 0 | 1 | 2;
   user: ObjectId;
+  latestPublishAt: Date;
 }
 
 module.exports = (app: Application) => {
@@ -35,6 +36,7 @@ module.exports = (app: Application) => {
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     author: { type: String },
     uuid: { type: String, unique: true },
+    latestPublishAt: { type: Date },
   }, { timestamps: true, collection: 'work'});
 
   WorkSchema.plugin(AutoIncrement, { inc_field: 'id', id: 'works_id' });

@@ -1,6 +1,6 @@
 import {Controller} from 'egg';
 import validateInput from '../decorator/inputValidate';
-// import checkPermission from "../decorator/checkPermission";
+import checkPermission from "../decorator/checkPermission";
 
 const workCreateRule = {
   title: 'string',
@@ -44,39 +44,38 @@ export default class WorkController extends Controller {
     ctx.helper.success({ctx, res})
   }
 
-  // // 检查权限
-  async checkPermission(id: number) {
-    const {ctx} = this;
-    const userId = ctx.state.user._id;
-    const certainWork = await this.ctx.model.Work.findOne({id});
-    if (!certainWork) {
-      return false
-    }
-    return certainWork.user.toString() === userId;
-  }
-
-  // @checkPermission()
+  @checkPermission('Work', 'workNoPermissionFail')
   async update() {
     const {ctx} = this;
     const {id} = ctx.params;
-    const permission = await this.checkPermission(id)
-    console.log(permission);
-    if (!permission) {
-      return ctx.helper.error({ctx, errorType: 'workNoPermissionFail'})
-    }
     const payload = ctx.request.body;
     const res = await ctx.model.Work.findOneAndUpdate({id}, payload, {new: true}).lean()
     ctx.helper.success({ctx, res})
   }
 
+  @checkPermission('Work', 'workNoPermissionFail')
   async delete() {
     const {ctx} = this;
     const {id} = ctx.params;
-    const permission = await this.checkPermission(id)
-    if (!permission) {
-      return ctx.helper.error({ctx, errorType: 'workNoPermissionFail'})
-    }
     const res = await ctx.model.Work.findOneAndDelete({id}).select('_id id title').lean()
     ctx.helper.success({ctx, res})
+  }
+
+  @checkPermission('Work', 'workNoPermissionFail')
+  async publish(isTemplate: boolean) {
+    const {ctx} = this;
+    const {id} = ctx.params;
+    const url = await ctx.service.work.publish(id, isTemplate);
+    console.log(url, 'url')
+    ctx.helper.success({ctx, res: url});
+  }
+
+  // 发布作品
+  async publishWork() {
+    await this.publish(false)
+  }
+  // 发布模板
+  async publishTemplate() {
+    await this.publish(true)
   }
 }
