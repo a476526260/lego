@@ -1,5 +1,6 @@
 import {Controller} from 'egg';
-import validateInput from '../decorator/inputValidate'
+import validateInput from '../decorator/inputValidate';
+// import checkPermission from "../decorator/checkPermission";
 
 const workCreateRule = {
   title: 'string',
@@ -43,7 +44,7 @@ export default class WorkController extends Controller {
     ctx.helper.success({ctx, res})
   }
 
-  // 检查权限
+  // // 检查权限
   async checkPermission(id: number) {
     const {ctx} = this;
     const userId = ctx.state.user._id;
@@ -54,14 +55,16 @@ export default class WorkController extends Controller {
     return certainWork.user.toString() === userId;
   }
 
+  // @checkPermission()
   async update() {
     const {ctx} = this;
     const {id} = ctx.params;
     const permission = await this.checkPermission(id)
+    console.log(permission);
     if (!permission) {
       return ctx.helper.error({ctx, errorType: 'workNoPermissionFail'})
     }
-    const payload = ctx.request.body.payload;
+    const payload = ctx.request.body;
     const res = await ctx.model.Work.findOneAndUpdate({id}, payload, {new: true}).lean()
     ctx.helper.success({ctx, res})
   }

@@ -23,7 +23,6 @@ module.exports = (app: Application) => {
   const Schema = mongoose.Schema;
   const AutoIncrement = AutoIncrementFactory(mongoose);
   const WorkSchema = new Schema<WorkProps>({
-    uuid: { type: String, unique: true },
     title: { type: String },
     desc: { type: String },
     coverImg: { type: String },
@@ -31,11 +30,12 @@ module.exports = (app: Application) => {
     isTemplate: { type: Boolean },
     isPublic: { type: Boolean },
     isHot: { type: Boolean },
-    author: { type: String },
     copiedCount: { type: Number, default: 0 },
     status: { type: Number, default: 1 },
     user: { type: Schema.Types.ObjectId, ref: 'User' },
-  }, { timestamps: true });
+    author: { type: String },
+    uuid: { type: String, unique: true },
+  }, { timestamps: true, collection: 'work'});
 
   WorkSchema.plugin(AutoIncrement, { inc_field: 'id', id: 'works_id' });
   return mongoose.model<WorkProps>('Work', WorkSchema);

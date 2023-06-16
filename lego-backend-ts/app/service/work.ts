@@ -17,7 +17,6 @@ export default class WorkService extends Service {
   async createEmptyWork(payload) {
     const {ctx} = this;
     const {username, _id} = ctx.state.user;
-    console.log(username, _id);
     const uuid = nanoid(6);
 
     const newEmptyWork: Partial<WorkProps> = {

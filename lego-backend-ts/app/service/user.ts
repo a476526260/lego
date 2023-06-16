@@ -31,7 +31,7 @@ export default class UserService extends Service {
     const { ctx, app } = this;
     const user = await this.findByUserName(phoneNumber);
     if (user) {
-      const token = app.jwt.sign({ username: user.username, _id: user.id }, app.config.jwt.secret, { expiresIn: 60 * 60 });
+      const token = app.jwt.sign({ username: user.username, _id: user._id }, app.config.jwt.secret, { expiresIn: 60 * 60 });
       return token;
     }
 
@@ -42,7 +42,7 @@ export default class UserService extends Service {
       type: 'cellphone',
     };
     const newUser = await ctx.model.User.create(userCreatedData);
-    const token = app.jwt.sign({ username: newUser.username, _id: user.id }, app.config.jwt.secret, { expiresIn: 60 * 60 });
+    const token = app.jwt.sign({ username: newUser.username, _id: user._id }, app.config.jwt.secret, { expiresIn: 60 * 60 });
     return token;
   }
 }

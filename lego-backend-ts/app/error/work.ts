@@ -4,7 +4,7 @@ export const workErrorMessage = {
     message: '输入信息验证失败',
   },
   workNoPermissionFail: {
-    errNO: 10202,
+    errNo: 10202,
     message: '无权限执行此操作'
   }
 };
