@@ -10,7 +10,7 @@
   "scripts": {
     "start": "egg-scripts start --daemon --title=egg-server-legoBackend",
     "stop": "egg-scripts stop --title=egg-server-legoBackend",
-    "dev": "egg-bin dev",
+    "dev": "npm install rimraf && rimraf node_modules && yarn install && egg-bin dev",
     "debug": "egg-bin debug",
     "test-local": "egg-bin test",
     "test": "npm run lint -- --fix && npm run test-local",
@@ -32,7 +32,8 @@
     "egg-validate": "^2.0.2",
     "egg-view-nunjucks": "^2.3.0",
     "mongoose-sequence": "^5.3.1",
-    "nanoid": "^3.1.30"
+    "nanoid": "^3.1.30",
+    "rimraf": "^5.0.1"
   },
   "devDependencies": {
     "@eggjs/tsconfig": "^1.0.0",

@@ -1,7 +1,7 @@
-import { Application } from 'egg';
+import {Application} from 'egg';
 
 export default (app: Application) => {
-  const { controller, router } = app;
+  const {controller, router} = app;
 
   const jwtMiddleware = app.jwt as any
   router.get('/', controller.home.index);
@@ -11,4 +11,7 @@ export default (app: Application) => {
   router.post('/api/users/sendCode', controller.user.sendVeriCode);
   router.post('/api/user/loginByPhoneNumber', controller.user.loginByPhoneNumber);
   router.post('/api/work/createNewWork', jwtMiddleware, controller.work.createWork);
+
+  router.patch('/api/works/:id', jwtMiddleware, controller.work.update);
+  router.delete('/api/works/:id', jwtMiddleware, controller.work.delete);
 };
