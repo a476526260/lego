@@ -16,7 +16,6 @@ function getTokenValue(ctx) {
         return credentials;
       }
       return false;
-
     }
   } else {
     return false;
