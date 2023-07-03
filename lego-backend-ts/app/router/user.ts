@@ -1,4 +1,4 @@
-module.exports = (app) => {
+export const userRoute =  (app) => {
   const {controller, router} = app;
   const jwtMiddleware = app.jwt as any
   router.get('/api/users/:id', jwtMiddleware, controller.user.showUser);

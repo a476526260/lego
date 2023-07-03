@@ -1,4 +1,4 @@
-module.exports = (app) => {
+export const workRoute = (app) => {
   const {controller, router} = app;
   const jwtMiddleware = app.jwt as any
   router.post('/api/work/createNewWork', jwtMiddleware, controller.work.createWork);
