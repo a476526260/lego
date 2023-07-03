@@ -33,7 +33,9 @@ export default class WorkService extends Service {
     const {pageIndex, pageSize, select, populate, customSort, find} = mergeCondition
     const skip = pageIndex * pageSize
     const res = await this.ctx.model.Work
-      .find(find).select(select).populate(populate)
+      .find(find)
+      .select(select)
+      .populate(populate)
       .skip(skip)
       .limit(pageSize)
       .sort(customSort)
@@ -42,10 +44,10 @@ export default class WorkService extends Service {
     return {count, list: res, pageSize, pageIndex}
   }
 
-  async publish(id: number, isTemplate= false)  {
+  async publish(id: number, isTemplate = false) {
     const {ctx} = this;
     const {h5BaseUrl} = ctx.app.config;
-    const payload: Partial<WorkProps>={
+    const payload: Partial<WorkProps> = {
       status: 2,
       latestPublishAt: new Date(),
       ...(isTemplate && {isTemplate: true})
