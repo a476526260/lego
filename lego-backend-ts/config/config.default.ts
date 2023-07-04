@@ -1,5 +1,6 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
-
+import * as dotenv from 'dotenv';
+dotenv.config();
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
 
@@ -44,6 +45,15 @@ export default (appInfo: EggAppInfo) => {
     origin: '*',
     allowMethods: 'GET,HEAD,PUT,OPTIONS,POST,DELETE,PATCH',
   };
+  config.oss = {
+    client: {
+      accessKeyId: process.env.ALI_ACCESS_KEY || '',
+      accessKeySecret: process.env.ALI_ACCESS_SECRET || '',
+      bucket: 'lego-backend-oss-sh',
+      endpoint: 'oss-cn-shanghai.aliyuncs.com'
+    }
+  }
+
 
   // add your special config in here
   const bizConfig = {
